@@ -62,13 +62,18 @@ $(document).ready(function () {
             }
         });
 
-    })
+    });
     $("td").dblclick(function () {
         var text = $(this).text();
         $(this).text('');
         $(this).append('<input class="modified" value="'+text+'">');
         $(this).find('input').focus();
+        $(this).find('input').focusout(function(){
+            text = $(this).val();
+            $(this).parent().text(text);
+            $(this).remove();
 
+        });
     });
 });
 
@@ -76,25 +81,29 @@ function error(data) {
     var html = '<p class="error_message">' + data.error + '</p>';
     $('.control').append(html);
 
-}
+};
 function getTagsNames(data) {
     var tags = [];
     for (var i = 0; i < data.length; i++) {
         tags[i] = {value: data[i]['id_worker'], label: data[i]['name'] + ' ' + data[i]['second_name']};
     }
     return tags;
-}
+};
 function getTagsSize(data) {
     var tags = [];
     for (var i = 0; i < data.length; i++) {
         tags[i] = {value: data[i]['id_size'], label: data[i]['size']};
     }
     return tags;
-}
+};
 function getTagsStyle(data) {
     var tags = [];
     for (var i = 0; i < data.length; i++) {
         tags[i] = {value: data[i]['id_style'], label: data[i]['style']};
     }
     return tags;
+};
+function installTags()
+{
+
 }
