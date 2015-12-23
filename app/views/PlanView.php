@@ -1,19 +1,19 @@
 <script type="text/javascript" src="js/plan.js"></script>
- <h2 align="center">План</h2>
-    <table id="plan" class="table-bordered personal">
-        <tr>
-            <th>#</th>
-            <th>Дата</th>
-            <th>Количество</th>
-            <th>Вид</th>
-            <th>Размер</th>
-            <th>Изготовлено</th>
-            <th>Робочий</th>
-            <td></td>
-        </tr>
-        <?php
-        for ($i = 0; $i < count($data); $i++) {
-            echo("
+<h2 align="center">План</h2>
+<table id="plan" class="table-bordered personal">
+    <tr>
+        <th>#</th>
+        <th>Дата</th>
+        <th>Количество</th>
+        <th>Вид</th>
+        <th>Размер</th>
+        <th>Изготовлено</th>
+        <th>Робочий</th>
+        <td></td>
+    </tr>
+    <?php
+    for ($i = 0; $i < count($data); $i++) {
+        echo("
         <tr>
             <td class='id_plan'>" . $data[$i]['id_plan'] . "</td>
             <td class = 'date big'>" . $data[$i]['date'] . "</td>
@@ -25,5 +25,7 @@
             <td><input class='check_delete' type='checkbox' value=" . $data[$i]['id_plan'] . "></td>
         <tr>
         ");
-        } ?>
-    </table>
+    } ?>
+
+</table>
+

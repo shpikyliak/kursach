@@ -83,7 +83,7 @@ $(document).ready(function () {
     $(".save_modified").click(function () {
         var modified = $('.modified_field');
         $.each(modified,function(key,value){
-            console.log($(value).parent().child(':first-child'))
+            console.log($(value).parent().find("td:first"))
         })
 
     });
