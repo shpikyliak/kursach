@@ -29,7 +29,7 @@ class ControllerWorker extends Controller
     {
         try{
             $this->model->delete($_POST['data']);
-            //echo json_encode(array('success'=>'true'));
+            echo json_encode(array('success'=>'true'));
         }catch (Exception $e)
         {
             echo json_encode(array('error'=>$e->getMessage()));

@@ -46,48 +46,49 @@ class DB
 
         return $row;
     }
-    public function getOneFrom($data,$table)
+
+    public function getOneFrom($data, $table)
     {
-        $sql = 'SELECT * FROM '.$table.' WHERE '.$data['field'].'='.$data['value'];
+        $sql = 'SELECT * FROM ' . $table . ' WHERE ' . $data['field'] . '=' . $data['value'];
         $result = mysqli_query($this->mysqli, $sql);
         if (!$result) {
             exit ('No table');
         }
-        for ($i = 0; $i < $result->num_rows; $i++) {
-            $row[] = $result->fetch_assoc();
-        }
+        $row = $result->fetch_assoc();
+        return $row;
     }
 
     public function addInTable($data, $table)
     {
-        $sql ='';
+        $sql = '';
         $values = '';
         for ($i = 0; $i < count($data); $i++) {
-            $col ='';
-            $values .='(';
+            $col = '';
+            $values .= '(';
             foreach ($data[$i] as $key => $value) {
-                $col .= $key.',';
-                $values .= "'".$value."'".",";
+                $col .= $key . ',';
+                $values .= "'" . $value . "'" . ",";
             }
 
-            $col[strlen($col)-1] = ' ';
-            $values[strlen($values)-1] = ')';
-            $values .=',';
+            $col[strlen($col) - 1] = ' ';
+            $values[strlen($values) - 1] = ')';
+            $values .= ',';
 
         }
-        $values[strlen($values)-1] = ' ';
-        $sql .= "INSERT INTO ".$table." (".$col.") VALUES ".$values."; ";
-        $result = mysqli_query($this->mysqli,$sql);
-        if(!$result)
+        $values[strlen($values) - 1] = ' ';
+        $sql .= "INSERT INTO " . $table . " (" . $col . ") VALUES " . $values . "; ";
+        $result = mysqli_query($this->mysqli, $sql);
+        if (!$result)
             throw new Exception('Ошибка базы данных!');
         return true;
     }
 
-    public function delete($id,$table)
+    public function delete($id, $table)
     {
-        $sql = 'DELETE FROM '.$table.' WHERE id_'.$table.'='.$id;
-        $result = mysqli_query($this->mysqli,$sql);
-        if(!$result)
+        $sql = 'DELETE FROM ' . $table . ' WHERE id_' . $table . '=' . $id;
+        var_dump($sql);
+        $result = mysqli_query($this->mysqli, $sql);
+        if (!$result)
             throw new Exception('Ошибка базы данных!');
         return true;
     }

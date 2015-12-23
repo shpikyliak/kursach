@@ -17,7 +17,10 @@ class ModelPlan extends Model
                 $row++;
                 DataChecker::checkDate($data[$i]['date']);
                 DataChecker::checkAmount($data[$i]['amount_to_develop']);
-                DataChecker::checkStyle($data[$i]['style']);
+                DataChecker::checkStyle($data[$i]['id_style']);
+                DataChecker::checkSize($data[$i]['id_size']);
+                DataChecker::checkManufactured($data[$i]['manufactured'],$data[$i]['amount_to_develop']);
+                DataChecker::checkWorker($data[$i]['id_worker']);
             }
         }catch (Exception $e)
         {
@@ -33,5 +36,11 @@ class ModelPlan extends Model
         $db = new DB();
         $db->addInTable($data,'plan');
     }
-
+    public function delete($data)
+    {
+        $db = new DB();
+        for ($i = 0; $i < count($data); $i++) {
+            $db->delete($data[$i], 'plan');
+        }
+    }
 }

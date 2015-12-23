@@ -17,12 +17,22 @@ class ControllerPlan extends Controller
     {
         try{
             $this->model->check($_POST['data']);
-            //$this->model->add($_POST['data']);
-            //echo json_encode(array('success'=>'true'));
+            $this->model->add($_POST['data']);
+            echo json_encode(array('success'=>'true'));
         }catch (Exception $e)
         {
             echo json_encode(array('error'=>$e->getMessage()));
         }
 
+    }
+    public function actionDelete()
+    {
+        try{
+            $this->model->delete($_POST['data']);
+            echo json_encode(array('success'=>'true'));
+        }catch (Exception $e)
+        {
+            echo json_encode(array('error'=>$e->getMessage()));
+        }
     }
 }
