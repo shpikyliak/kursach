@@ -18,6 +18,7 @@
     <button class="btn btn-default delete" disabled="disabled">Удалить вибране</button>
     <button class="btn btn-default save" disabled="disabled">Зберегти нові</button>
     <button class="btn btn-default save_modified" disabled="disabled">Зберегти зміни</button>
+    <a href="?/export"><button class="btn btn-default">Export Excel</button></a>
 </div>
 
 <div class="table_container">
