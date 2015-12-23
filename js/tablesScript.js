@@ -68,7 +68,7 @@ $(document).ready(function () {
         $(this).text('');
         $(this).append('<input class="modified" value="'+text+'">');
         $(this).find('input').focus();
-        
+
     });
 });
 

@@ -27,3 +27,4 @@
         ");
         } ?>
     </table>
+<a href="/plan/export"><button>Export Excel</button></a>
