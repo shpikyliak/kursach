@@ -64,16 +64,24 @@ $(document).ready(function () {
 
     });
     $("td").dblclick(function () {
+        var name = $(this).attr('class').split(' ');
         var text = $(this).text();
         $(this).text('');
-        $(this).append('<input class="modified" value="'+text+'">');
+        $(this).append('<input class="modified" name="' + name[0] + '" value="' + text + '">');
+        installTags();
         $(this).find('input').focus();
-        $(this).find('input').focusout(function(){
-            text = $(this).val();
-            $(this).parent().text(text);
+        $(this).find('input').focusout(function () {
+            var newtext = $(this).val();
+            $(this).parent().text(newtext).addClass('modified_field');
             $(this).remove();
+            if (newtext != text) {
+                $('.save_modified').removeAttr('disabled').addClass('btn-success');
+            }
 
         });
+    });
+    $(".save_modified").click(function () {
+        $('.modified_field')
     });
 });
 
@@ -103,7 +111,20 @@ function getTagsStyle(data) {
     }
     return tags;
 };
-function installTags()
-{
-
+function getTagsPlan(data) {
+    var tags = [];
+    for (var i = 0; i < data.length; i++) {
+        tags[i] = {value: data[i]['id_plan'], label: data[i]['id_plan']};
+    }
+    return tags;
+};
+function installTags() {
+    var availableNames = getTagsNames(get('worker'));
+    var availableSize = getTagsSize(get('size'));
+    var availableStyle = getTagsStyle(get('style'));
+    var availablePlan = getTagsPlan(get('plan'));
+    $("input[name='id_worker']").autocomplete({source: availableNames});
+    $("input[name='size']").autocomplete({source: availableSize});
+    $("input[name='style']").autocomplete({source: availableStyle});
+    $("input[name='id_plan']").autocomplete({source: availablePlan});
 }

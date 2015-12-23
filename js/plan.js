@@ -1,7 +1,4 @@
 $(document).ready(function () {
-    var availableNames = getTagsNames(get('worker'));
-    var availableSize = getTagsSize(get('size'));
-    var availableStyle = getTagsStyle(get('style'));
     $('.add').click(function(){
         $('.save').removeAttr('disabled').addClass('btn-success');
         var html = "<tr>" +
@@ -16,9 +13,7 @@ $(document).ready(function () {
             "</tr>";
 
         $('table').append(html);
-        $("input[name='id_worker']").autocomplete({source: availableNames});
-        $("input[name='size']").autocomplete({source: availableSize});
-        $("input[name='style']").autocomplete({source: availableStyle});
+        installTags();
         $('.delete_row').click(function(){
                 $(this).parent().parent().remove();
                 if (!$('input').is('.new')) {$('.save').attr('disabled','disabled').removeClass('btn-success');}
