@@ -4,7 +4,7 @@ class DB
 {
     private $host = 'localhost';
     private $user = 'root';
-    private $pass = '';
+    private $pass = 'root';
     private $base = 'kursach';
     public $mysqli;
 

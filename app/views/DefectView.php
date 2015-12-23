@@ -20,4 +20,3 @@
         ");
         } ?>
     </table>
-<a href="/defect/export"><button>Export Excel</button></a>

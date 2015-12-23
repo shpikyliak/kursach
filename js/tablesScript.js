@@ -81,7 +81,11 @@ $(document).ready(function () {
         });
     });
     $(".save_modified").click(function () {
-        $('.modified_field')
+        var modified = $('.modified_field');
+        $.each(modified,function(key,value){
+            console.log($(value).parent().child(':first-child'))
+        })
+
     });
 });
 
