@@ -1,0 +1,99 @@
+table
+{
+	margin: 12px;
+	float: left;
+}
+caption
+{
+	text-align: center;
+	font-size: 25px;
+}
+td,th{
+	padding: 6px;
+	text-align: center;
+}
+
+#style, #size, #defect_type, .personal
+{
+	margin: 5px auto;
+	float: none;
+}
+
+#left
+{
+
+	float: right;
+	width: 80%;
+	height: 100%;
+}
+#right
+{
+	position:fixed;
+	height: 100%;
+	border-left: 1px solid black;
+	float: left;
+	width: 20%;
+
+}
+#promt
+{
+	position: absolute;
+	background: rgba(250, 255, 126, 0.13);
+	padding: 3px;
+}
+a:hover{
+	text-decoration: none;
+}
+.personal
+{
+	margin-top: 40px;
+}
+.control
+{
+	position: fixed;
+	padding: 15px;
+	border-bottom: 1px solid black;
+	height: 60px;
+	width: 100%;
+	left: 0;
+	top:0;
+	background: rgb(245, 245, 245);
+}
+.control a,button
+{
+
+	margin-left: 20px;
+}
+.big
+{
+	width: 160px;
+}
+
+input.new
+{
+	text-align: center;
+	width: 140px;
+}
+.delete_row
+{
+	width: 20px;
+	height: 20px;
+	margin: 0;
+	padding: 0;
+}
+
+.error
+{
+	border: 1px solid #d43f3a;
+	background: rgba(212, 63, 58, 0.01);
+}
+.table_container
+{
+	margin-top: 60px;
+	margin-bottom: 50px;
+}
+.error_message
+{
+	float: right;
+	color: red;
+}
