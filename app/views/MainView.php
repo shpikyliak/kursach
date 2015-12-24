@@ -1,4 +1,11 @@
 <script type="text/javascript" src="js/main.js"></script>
+
+<div class="control">
+    <a href="choose/workerAZ" class="btn btn-default">Роботники в алфавитном</a>
+    <a href="choose/planMonth" class="btn btn-default">План на месяц</a>
+    <a href="choose/defectToType" class="btn btn-default">Браки по типу</a>
+</div>
+<div class="table_container">
 <div id="left">
 <table id="worker" class="table-bordered">
     <caption><a href="/worker">Работники</a></caption>
@@ -124,4 +131,5 @@
         ");
     }?>
 </table>
+</div>
 </div>

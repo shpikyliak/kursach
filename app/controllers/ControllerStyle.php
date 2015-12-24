@@ -12,30 +12,42 @@ class ControllerStyle extends Controller
         $data = $this->model->getStyle();
         $this->view->generate('StyleView.php', 'TableSingleView.php',$data);
     }
-    public function actionExport()
+    public function actionAdd()
     {
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="styles.xlsx"');
-        header('Cache-Control: max-age=0');
-
-        $data = $this->model->getStyle();
-        $objPHPExcel = new PHPExcel();
-
-        $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue('A1', 'id')
-                    ->setCellValue('B1', 'Вид');
-
-        for ($i=0;$i<count($data);$i++){
-            $y = $i + 2;
-
-            $objPHPExcel->setActiveSheetIndex(0)
-                        ->setCellValue('A'.$y, $data[$i]['id_style'])
-                        ->setCellValue('B'.$y, $data[$i]['style']);
+        try{
+            $this->model->check($_POST['data']);
+            $this->model->add($_POST['data']);
+            echo json_encode(array('success'=>'true'));
+        }catch (Exception $e)
+        {
+            echo json_encode(array('error'=>$e->getMessage()));
         }
 
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-        $objWriter->save('php://output');
-        exit;
+    }
+    public function actionDelete()
+    {
+        try {
+            $this->model->delete($_POST['data']);
+            echo json_encode(array('success' => 'true'));
+        } catch (Exception $e) {
+            echo json_encode(array('error' => $e->getMessage()));
+        }
+    }
+    public function actionExport()
+    {
+        $data = $this->model->getStyle();
+        $this->model->exportXLSX($data);
+    }
 
+    public function actionUpdate()
+    {
+
+        try {
+            $this->model->check($_POST['data']);
+            $this->model->update($_POST['data']);
+            echo json_encode(array('success'=>'true'));
+        } catch (Exception $e) {
+            echo json_encode(array('error' => $e->getMessage()));
+        }
     }
 }

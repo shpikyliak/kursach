@@ -12,34 +12,40 @@ class ControllerDefect extends Controller
         $data = $this->model->getDefect();
         $this->view->generate('DefectView.php', 'TableSingleView.php',$data);
     }
-    public function actionExport()
+    public function actionAdd()
     {
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="defects.xlsx"');
-        header('Cache-Control: max-age=0');
-
-        $data = $this->model->getDefect();
-        $objPHPExcel = new PHPExcel();
-
-        $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue('A1', 'id')
-                    ->setCellValue('B1', 'id плана')
-                    ->setCellValue('C1', 'Вид брака')
-                    ->setCellValue('D1', 'Количество');
-
-        for ($i=0;$i<count($data);$i++){
-            $y = $i + 2;
-
-            $objPHPExcel->setActiveSheetIndex(0)
-                        ->setCellValue('A'.$y, $data[$i]['id_defect'])
-                        ->setCellValue('B'.$y, $data[$i]['id_plan'])
-                        ->setCellValue('C'.$y, $data[$i]['id_defect_type'])
-                        ->setCellValue('D'.$y, $data[$i]['amount']);
+        try{
+            $this->model->check($_POST['data']);
+            $this->model->add($_POST['data']);
+            echo json_encode(array('success'=>'true'));
+        }catch (Exception $e)
+        {
+            echo json_encode(array('error'=>$e->getMessage()));
         }
 
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-        $objWriter->save('php://output');
-        exit;
-
+    }
+    public function actionExport()
+    {
+        $data = $this->model->getDefect();
+        $this->model->export($data);
+    }
+    public function actionDelete()
+    {
+        try {
+            $this->model->delete($_POST['data']);
+            echo json_encode(array('success' => 'true'));
+        } catch (Exception $e) {
+            echo json_encode(array('error' => $e->getMessage()));
+        }
+    }
+    public function actionUpdate()
+    {
+        try {
+            $this->model->check($_POST['data']);
+            $this->model->update($_POST['data']);
+            echo json_encode(array('success'=>'true'));
+        } catch (Exception $e) {
+            echo json_encode(array('error' => $e->getMessage()));
+        }
     }
 }

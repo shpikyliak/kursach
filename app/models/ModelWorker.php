@@ -18,12 +18,12 @@ class ModelWorker extends Model
     {
         $db = new DB();
         $table =  $db->getAllFrom('worker');
-        for($i=0;$i<count($data);$i++){
+        foreach($data as $key => $value){
             for ($j=0;$j<count($table);$j++)
             {
-                if ($data[$i]['name']==$table[$j]['name'] && $data[$i]['second_name']==$table[$j]['second_name'])
+                if ($value['name']==$table[$j]['name'] && $value['second_name']==$table[$j]['second_name'])
                 {
-                    throw new Exception('Работник '.$data[$i]["name"].' '.$data[$i]["second_name"].'уже существует!');
+                    throw new Exception('Работник '.$value["name"].' '.$value["second_name"].'уже существует!');
                 }
             }
         }
@@ -43,6 +43,18 @@ class ModelWorker extends Model
             $db->delete($data[$i],'worker');
         }
 
+    }
+    public function update($data)
+    {
+        $db = new DB();
+        foreach($data as $key=>$value)
+        {
+            $db->updateInTable($value,'worker',$key);
+        }
+    }
+    public function exportXLSX($data)
+    {
+        Export::toXML($data);
     }
 
 }

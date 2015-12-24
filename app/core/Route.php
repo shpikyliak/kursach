@@ -44,7 +44,6 @@ class Route
         // include controller file
         $controllerFile = $controllerName . '.php';
         $controllerPath = "app/controllers/" . $controllerFile;
-
         if (file_exists($controllerPath)) {
             include "app/controllers/" . $controllerFile;
         } else {

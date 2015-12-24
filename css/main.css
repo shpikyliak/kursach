@@ -28,7 +28,7 @@ td,th{
 }
 #right
 {
-	position:fixed;
+
 	height: 100%;
 	border-left: 1px solid black;
 	float: left;

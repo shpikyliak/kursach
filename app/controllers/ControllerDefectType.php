@@ -12,30 +12,45 @@ class ControllerDefectType extends Controller
         $data = $this->model->getDefectType();
         $this->view->generate('DefectTypeView.php', 'TableSingleView.php',$data);
     }
-    public function actionExport()
+
+    public function actionAdd()
     {
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="defect_types.xlsx"');
-        header('Cache-Control: max-age=0');
-
-        $data = $this->model->getDefectType();
-        $objPHPExcel = new PHPExcel();
-
-        $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue('A1', 'id')
-                    ->setCellValue('B1', 'Вид');
-
-        for ($i=0;$i<count($data);$i++){
-            $y = $i + 2;
-
-            $objPHPExcel->setActiveSheetIndex(0)
-                        ->setCellValue('A'.$y, $data[$i]['id_defect_type'])
-                        ->setCellValue('B'.$y, $data[$i]['defect_type']);
+        try {
+            $this->model->check($_POST['data']);
+            $this->model->add($_POST['data']);
+            echo json_encode(array('success' => 'true'));
+        } catch (Exception $e) {
+            echo json_encode(array('error' => $e->getMessage()));
         }
 
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-        $objWriter->save('php://output');
-        exit;
+    }
+
+    public function actionDelete()
+    {
+        try {
+            $this->model->delete($_POST['data']);
+            echo json_encode(array('success' => 'true'));
+        } catch (Exception $e) {
+            echo json_encode(array('error' => $e->getMessage()));
+        }
+    }
+
+    public function actionUpdate()
+    {
+
+        try {
+
+            $this->model->check($_POST['data']);
+            $this->model->update($_POST['data']);
+            echo json_encode(array('success'=>'true'));
+        } catch (Exception $e) {
+            echo json_encode(array('error' => $e->getMessage()));
+        }
+    }
+    public function actionExport()
+    {
+        $data = $this->model->getDefectType();
+        $exp = $this->model->exportXLSX($data);
 
     }
 }

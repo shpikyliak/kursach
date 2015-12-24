@@ -52,7 +52,7 @@ class DB
         $sql = 'SELECT * FROM ' . $table . ' WHERE ' . $data['field'] . '=' . $data['value'];
         $result = mysqli_query($this->mysqli, $sql);
         if (!$result) {
-            exit ('No table');
+            return false;
         }
         $row = $result->fetch_assoc();
         return $row;
@@ -86,10 +86,61 @@ class DB
     public function delete($id, $table)
     {
         $sql = 'DELETE FROM ' . $table . ' WHERE id_' . $table . '=' . $id;
-        var_dump($sql);
         $result = mysqli_query($this->mysqli, $sql);
         if (!$result)
             throw new Exception('Ошибка базы данных!');
         return true;
+    }
+    public function updateInTable($data,$table,$id)
+    {
+
+        $updateValue = '';
+        foreach ($data as $key => $value) {
+            $updateValue.= $key.'="'.$value.'",';
+        }
+
+        $updateValue[strlen($updateValue)-1] =' ';
+        $sql = 'UPDATE '.$table.' SET '.$updateValue.' WHERE id_'.$table.'='.$id;
+        $result = mysqli_query($this->mysqli, $sql);
+        if (!$result)
+            throw new Exception('Ошибка базы данных!');
+        return true;
+    }
+    public function sumAmount()
+    {
+        $sql="SELECT SUM(`amount`),id_plan FROM defect GROUP BY id_plan";
+        $result = mysqli_query($this->mysqli, $sql);
+        if (!$result)
+            throw new Exception('Ошибка базы данных!');
+        $row = $result->fetch_assoc();
+        return $row;
+
+    }
+
+    public function workerAZ()
+    {
+        $sql="SELECT * FROM worker order by second_name ASC";
+        $result = mysqli_query($this->mysqli, $sql);
+        if (!$result)
+            throw new Exception('Ошибка базы данных!');
+        if (!$result) {
+            exit ('No table');
+        }
+        for ($i = 0; $i < $result->num_rows; $i++) {
+            $row[] = $result->fetch_assoc();
+        }
+
+        return $row;
+    }
+    public function defectOnType()
+    {
+        $sql = 'SELECT  sum(amount),defect_type from defect  n  join defect_type as m on m.id_defect_type = n.id_defect_type  group by n.id_defect_type';
+        $result = mysqli_query($this->mysqli, $sql);
+        if (!$result)
+            throw new Exception('Ошибка базы данных!');
+        for ($i = 0; $i < $result->num_rows; $i++) {
+            $row[] = $result->fetch_assoc();
+        }
+        return $row;
     }
 }
