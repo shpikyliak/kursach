@@ -14,4 +14,10 @@ class ModelChoose extends Model
         $data = $db->defectOnType();
         return $data;
     }
+    public function report()
+    {
+        $db = new DB();
+        $data = $db->report();
+        return $data;
+    }
 }

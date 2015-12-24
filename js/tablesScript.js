@@ -10,7 +10,7 @@ $(document).ready(function () {
     });
     $('.save').click(function () {
         var success = true;
-        var data = {};
+            var data = {};
         var inp = $('.new').parent().parent();
         $.each(inp, function (key, tr) {
             data[key] = {};
@@ -33,9 +33,8 @@ $(document).ready(function () {
                 type: 'POST',
                 dataType: 'json',
                 success: function (responce) {
-                   if (responce['error']) error(responce);
-                   else location.reload()
-                    //console.log(responce);
+                   if (responce['error']) error(responce)
+                   else location.reload();
 
                 }
             })
@@ -151,7 +150,6 @@ function getTagsPlan(data) {
     return tags;
 };
 function getTagsDefect(data) {
-    console.log(data);
     var tags = [];
     for (var i = 0; i < data.length; i++) {
         tags[i] = {value: data[i]['id_defect_type'], label: data[i]['defect_type']};

@@ -143,4 +143,15 @@ class DB
         }
         return $row;
     }
+    public function report()
+    {
+        $sql =' SELECT worker.name,worker.second_name, sum(plan.amount_to_develop), sum(plan.manufactured) from plan left join worker on plan.id_worker=worker.id_worker Group by plan.id_worker';
+        $result = mysqli_query($this->mysqli, $sql);
+        if (!$result)
+            throw new Exception('Ошибка базы данных!');
+        for ($i = 0; $i < $result->num_rows; $i++) {
+            $row[] = $result->fetch_assoc();
+        }
+        return $row;
+    }
 }

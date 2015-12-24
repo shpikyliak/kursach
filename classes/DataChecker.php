@@ -16,7 +16,7 @@ class DataChecker
 
     static function checkStyle($style)
     {
-        var_dump($style);
+
         $sql = ['field' => 'id_style', 'value' => $style];
         $db = new DB();
         $data = $db->getOneFrom($sql, 'style');

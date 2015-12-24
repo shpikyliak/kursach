@@ -24,6 +24,11 @@ class ControllerChoose extends  Controller
         $data = $this->model->getDefectToType();
         $this->view->generate('DefectToTypeView.php','ChooseView.php',$data);
     }
+    public function actionPlanMonth()
+    {
+        $data = $this->model->report();
+        $this->view->generate('PlanMonthView.php','ChooseView.php',$data);
+    }
 
 
 
